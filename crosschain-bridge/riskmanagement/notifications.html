@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time Notifications - Risk Management App</title>
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Real-time Notifications</h2>
+        <div id="notification-area">
+            <!-- Notifications will be loaded here in real-time -->
+        </div>
+    </div>
+
+    <script>
+        // Use AJAX to periodically fetch new notifications
+        setInterval(function() {
+            fetch('backend/notifications.php')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('notification-area').innerHTML = data;
+                });
+        }, 5000); // Fetch every 5 seconds
+    </script>
+</body>
+</html>

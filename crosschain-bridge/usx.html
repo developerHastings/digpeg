@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automated Arbitrage Executor</title>
+    <!-- Include ethers.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/ethers@6.6.2/dist/ethers.min.js"></script>
+</head>
+<body>
+    <h1>Automated Arbitrage Executor</h1>
+    <button id="executeButton">Execute Arbitrage</button>
+
+    <script>
+        // Replace with your contract address and ABI
+        const CONTRACT_ADDRESS = "YOUR_CONTRACT_ADDRESS";
+        const CONTRACT_ABI = [
+            "function repeatArbitrage(uint256 repetitions, uint256 amount) external",
+            // Add other ABI entries if needed
+        ];
+
+        // Initialize ethers provider connected to MetaMask
+        const provider = new ethers.BrowserProvider(window.ethereum);
+
+        let contract;
+        let signer;
+
+        async function initializeContract() {
+            // Request account access from MetaMask
+            await provider.send("eth_requestAccounts", []);
+
+            // Get the signer (current MetaMask account)
+            signer = await provider.getSigner();
+
+            // Create a contract instance
+            contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+        }
+
+        // Function to execute the arbitrage
+        async function executeArbitrage() {
+            try {
+                // Set parameters for arbitrage
+                const repetitions = 10; // Adjust as needed
+                const amount = ethers.parseUnits("1", 18); // Adjust based on token decimals
+
+                // Call the contract function
+                const tx = await contract.repeatArbitrage(repetitions, amount);
+                alert("Transaction sent. Awaiting confirmation...");
+
+                // Wait for transaction confirmation
+                const receipt = await tx.wait();
+                alert("Transaction confirmed: " + receipt.transactionHash);
+            } catch (error) {
+                console.error("Error executing arbitrage:", error);
+                alert("Failed to execute arbitrage. Check the console for details.");
+            }
+        }
+
+        // Initialize the contract when the page loads
+        initializeContract();
+
+        // Add an event listener to the button
+        document.getElementById("executeButton").addEventListener("click", executeArbitrage);
+        
+        
+        
+        
+        /*
+        
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+// Interfaces for interacting with decentralized exchanges
+interface IExchange {
+    function swap(address tokenIn, address tokenOut, uint256 amountIn) external returns (uint256 amountOut);
+}
+
+
+
+contract HighFrequencyArbitrage {
+    address public owner;
+    IExchange public exchange1;
+    IExchange public exchange2;
+    address public token1;
+    address public token2;
+
+    // Modifier to restrict function access to the contract owner
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Not authorized");
+        _;
+    }
+
+    // Constructor to initialize the contract with exchange addresses and token addresses
+    constructor(address _exchange1, address _exchange2, address _token1, address _token2) {
+        owner = msg.sender;
+        exchange1 = IExchange(_exchange1);
+        exchange2 = IExchange(_exchange2);
+        token1 = _token1;
+        token2 = _token2;
+    }
+    // Function to execute a single arbitrage transaction
+    function executeArbitrage(uint256 amount) external onlyOwner {
+        uint256 initialBalance = amount; // Track the initial amount of token1
+
+        // Step 1: Swap token1 to token2 on Exchange 1
+        uint256 amountOut1 = exchange1.swap(token1, token2, amount);
+
+        // Step 2: Swap token2 back to token1 on Exchange 2
+        uint256 amountOut2 = exchange2.swap(token2, token1, amountOut1);
+
+        // Validate that the final amount is greater than the initial, ensuring a profit
+        require(amountOut2 > initialBalance + 0.5 ether, "No sufficient profit"); // Adjust based on desired profit margin
+
+        // Optional: Handling of profit (e.g., sending to owner, reinvestment, etc.)
+        uint256 profit = amountOut2 - initialBalance;
+        // Transfer or handle profit as required
+    }
+
+    
+    // Function to repeat the arbitrage transaction multiple times
+      // Function to repeat the arbitrage transaction multiple times with optimizations
+    function repeatArbitrage(uint256 repetitions, uint256 amount) external onlyOwner {
+        require(repetitions > 0, "Repetitions must be greater than zero");
+        require(amount > 0, "Amount must be greater than zero");
+
+        uint256 successfulArbitrages = 0;  // Counter for successful transactions
+        uint256 totalProfit = 0;           // Accumulator for total profit
+
+        for (uint256 i = 0; i < repetitions; i++) {
+            try this.executeArbitrage(amount) {
+                successfulArbitrages++;  // Increment count if arbitrage is successful
+                // Logic to handle successful arbitrage (e.g., logging, accumulating profit, etc.)
+            } catch {
+                // Optionally handle failed attempts (e.g., logging errors)
+                continue; // Skip to the next iteration if the transaction fails
+            }
+        }
+
+        // Log or handle total successful arbitrages and profit if needed
+        // Example: emit ArbitrageSummary(successfulArbitrages, totalProfit);
+    }
+
+
+    // Function to withdraw funds from the contract
+    function withdraw(address token, uint256 amount) external onlyOwner {
+        // Implement the withdrawal logic if needed
+    }
+
+    // Function to halt contract operations in case of an emergency
+    function emergencyStop() external onlyOwner {
+        // Implement emergency stop logic
+    }
+
+    
+
+}
+
+
+
+        */
+    </script>
+</body>
+</html>

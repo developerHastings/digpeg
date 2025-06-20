@@ -1,0 +1,2 @@
+[09-Aug-2024 20:02:25 UTC] PHP Warning:  require_once(tcpdf/tcpdf.php): failed to open stream: No such file or directory in /home3/digpegex/public_html/crosschain-bridge/generate_pdf.php on line 2
+[09-Aug-2024 20:02:25 UTC] PHP Fatal error:  require_once(): Failed opening required 'tcpdf/tcpdf.php' (include_path='.:/opt/alt/php73/usr/share/pear') in /home3/digpegex/public_html/crosschain-bridge/generate_pdf.php on line 2

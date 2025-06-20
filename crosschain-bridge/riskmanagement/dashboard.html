@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Risk Management</title>
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome to the Risk Management Dashboard</h2>
+        <!-- Dynamic Content Sections -->
+        <section id="alerts">
+            <h3>Real-Time Alerts</h3>
+            <div id="alert-content"></div>
+        </section>
+
+        <section id="reports">
+            <h3>Reports</h3>
+            <button onclick="location.href='generate_report.php'">Generate New Report</button>
+            <div id="report-content"></div>
+        </section>
+
+        <section id="vulnerabilities">
+            <h3>Vulnerability Scanning</h3>
+            <button onclick="location.href='scan.php'">Start Scan</button>
+            <div id="scan-results"></div>
+        </section>
+    </div>
+</body>
+</html>

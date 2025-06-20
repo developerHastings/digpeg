@@ -1,0 +1,4 @@
+[11-May-2025 20:04:17 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function json_encode() in /home/digpegex/public_html/crosschain-bridge/api/get_project_parameters.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/digpegex/public_html/crosschain-bridge/api/get_project_parameters.php on line 13

@@ -1,0 +1,174 @@
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Navigation */
+header {
+    background: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+header nav h1 {
+    font-size: 24px;
+}
+
+/* Hero Section */
+#hero {
+    background-image: url('hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 70vh;
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-content h2 {
+    font-size: 36px;
+}
+
+.hero-content p {
+    font-size: 18px;
+}
+
+.cta-button {
+    padding: 10px 25px;
+    background-color: #ff6600;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.cta-button:hover {
+    background-color: #ff4500;
+}
+
+/* Overview Section */
+#overview {
+    padding: 50px 20px;
+    background-color: white;
+    text-align: center;
+}
+
+#overview h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.stats li {
+    font-size: 22px;
+}
+
+/* Services Section */
+#services {
+    padding: 50px 20px;
+    background-color: #e9e9e9;
+    text-align: center;
+}
+
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.service-item {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.service-item h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+/* Qualifications Section */
+#qualifications {
+    padding: 50px 20px;
+    background-color: white;
+}
+
+.qualifications-list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.qualification-item {
+    width: 30%;
+    text-align: center;
+}
+
+.qualification-item h3 {
+    font-size: 22px;
+}
+
+.qualification-item p {
+    font-size: 18px;
+}
+
+/* Footer */
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.social-media {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.social-media li {
+    margin: 0 10px;
+}
+
+.social-media li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.social-media li a:hover {
+    color: #ff6600;
+}
