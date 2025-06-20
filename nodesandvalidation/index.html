@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Node Deployment and DeFi Services</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Add your styles -->
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.6.1/dist/web3.min.js"></script> <!-- Web3.js CDN -->
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID"></script>
+
+   <style>
+        /* Add some basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .service-section {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            padding: 2rem;
+            background-color: #fff;
+            margin: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-card {
+            background-color: #f9f9f9;
+            padding: 1rem;
+            width: 20%;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-card h3 {
+            color: #333;
+        }
+
+        .service-card p {
+            color: #555;
+            font-size: 14px;
+        }
+
+        .service-card .price {
+            font-size: 20px;
+            color: #2a9d8f;
+            font-weight: bold;
+        }
+
+        .service-card button {
+            padding: 10px;
+            background-color: #2a9d8f;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .service-card button:hover {
+            background-color: #21867a;
+        }
+
+        #root {
+            padding: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Welcome to Node Deployment and DeFi Services</h1>
+        <p>Your gateway to decentralized financial services, protocol verification, and staking!</p>
+    </header>
+
+    <div id="root">
+        <section class="service-section">
+            <div class="service-card">
+                <h3>DIGPEG Tokens</h3>
+                <p>Purchase $1,000 worth of DIGPEG Tokens directly from our smart contract.</p>
+                <div class="price">$35</div>
+                <button onclick="purchaseTokens()">Buy DIGPEG Tokens</button>
+            </div>
+
+            <div class="service-card">
+                <h3>Protocol Verification</h3>
+                <p>Pay to verify the integrity of blockchain protocols and earn rewards.</p>
+                <div class="price">$1,000</div>
+                <button onclick="verifyProtocol()">Verify Protocol</button>
+            </div>
+
+            <div class="service-card">
+                <h3>Node Staking Slots</h3>
+                <p>Stake nodes on our network and earn rewards. $500 per node.</p>
+                <div class="price">$500</div>
+                <button onclick="deployNode()">Deploy Node</button>
+            </div>
+        </section>
+
+        <section class="service-section">
+            <div class="service-card">
+                <h3>Prepaid DeFi Services</h3>
+                <p>Pay upfront for premium DeFi features, including cross-chain swaps and lending.</p>
+                <div class="price">$500</div>
+                <button onclick="subscribeDeFi()">Subscribe</button>
+            </div>
+            <div id="paypal-button-container"></div>
+
+<script>
+    paypal.Buttons({
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: '1000'  // Set the price here
+                    }
+                }]
+            });
+        },
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                alert('Payment Successful! ' + details.payer.name.given_name);
+                // Call your function to deliver the service, e.g. purchaseTokens or deployNode
+                purchaseTokens();
+            });
+        }
+    }).render('#paypal-button-container');
+</script>
+
+        </section>
+    </div>
+
+    <!-- Load the bundled JavaScript file -->
+    <script src="bundle.js"></script>
+
+    <script>
+        // Initialize Web3 instance
+        let web3 = new Web3(window.ethereum);
+        let userAddress;
+
+        // Request account access if needed
+        window.ethereum.enable().then(accounts => {
+            userAddress = accounts[0];
+        }).catch(error => {
+            console.error("User denied account access", error);
+        });
+
+        const pancakeSwapRouterAddress = '0x5C69bEe701ef814a2B6a3EDD4B4D2f31e01C20d2'; // PancakeSwap Router address on BSC
+        const usdtAddress = '0x55d398326f99059fF775485246999027B3197955'; // USDT contract address
+
+        // ABI for PancakeSwap Router
+        const ABI = [
+            // You will need the ABI for the PancakeSwap Router here (shortened for brevity)
+            {
+                "constant": false,
+                "inputs": [
+                    { "name": "amountIn", "type": "uint256" },
+                    { "name": "amountOutMin", "type": "uint256" },
+                    { "name": "path", "type": "address[]" },
+                    { "name": "to", "type": "address" },
+                    { "name": "deadline", "type": "uint256" }
+                ],
+                "name": "swapExactTokensForTokens",
+                "outputs": [{ "name": "", "type": "uint256[]" }],
+                "payable": false,
+                "stateMutability": "nonpayable",
+                "type": "function"
+            }
+        ];
+
+        // Function to swap USDT to another token
+        async function swapUSDTtoToken(amountIn) {
+            const router = new web3.eth.Contract(ABI, pancakeSwapRouterAddress);
+            const path = [usdtAddress, '0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3']; // DAI token with the token you want to swap to
+            const deadline = Math.floor(Date.now() / 1000) + 60 * 20; // 20 minutes from now
+
+            await router.methods.swapExactTokensForTokens(
+                amountIn,
+                0, // Minimum amount out (slippage tolerance can be added)
+                path,
+                userAddress,
+                deadline
+            ).send({ from: userAddress });
+        }
+
+        // Placeholder functions for the buttons to simulate actions
+        function purchaseTokens() {
+    alert("Purchasing DIGPEG Tokens...");
+
+    // Set the amount in USD that the user wants to spend
+    const usdAmount = 35;
+
+    // For the sake of this example, we assume 1 DIGPEG token = 1 USDT (you can change this based on the actual price of the token)
+    const tokenPriceInUSDT = 1;  // Adjust this with actual token price in USDT
+
+    // Calculate the amount of tokens to purchase
+    const tokensToPurchase = usdAmount / tokenPriceInUSDT;  // Calculate the number of tokens based on USD and token price
+
+    // Convert the token amount to the appropriate decimals (adjust based on your token's decimals)
+    const amountIn = web3.utils.toWei(tokensToPurchase.toString(), "ether");  // Adjust "ether" if your token has different decimals
+
+    // Call the swap function to purchase tokens
+    swapUSDTtoToken(amountIn);
+}
+
+
+        function verifyProtocol() {
+            alert("Verifying protocol...");
+            // Call your protocol verification function here
+        }
+
+        function deployNode() {
+            alert("Deploying node...");
+            // Call your smart contract to deploy a node
+        }
+
+        function subscribeDeFi() {
+            alert("Subscribing to DeFi services...");
+            // Handle DeFi subscription logic here
+        }
+    </script>
+</body>
+
+</html>

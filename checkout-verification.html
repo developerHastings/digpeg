@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Verification Package Checkout – DigPeg Exchange</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module" src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="max-w-6xl mx-auto px-4 py-10">
+    <h1 class="text-3xl font-bold text-center mb-8">Checkout – Verification Package</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+      <!-- Billing Details -->
+      <div class="bg-white p-6 rounded-xl shadow-md">
+        <h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
+          <i data-lucide="user-round" class="w-5 h-5 text-indigo-600"></i> Billing Details
+        </h2>
+
+        <form action="payment-confirmation.php" method="POST" id="checkoutForm" class="space-y-5">
+          <input type="hidden" name="package" value="Digital Products Verification">
+          <input type="hidden" name="amount" value="299">
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium mb-1 text-gray-700">First Name *</label>
+              <input required name="first_name" type="text"
+                class="w-full px-4 py-2 bg-white border border-gray-300 text-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1 text-gray-700">Last Name *</label>
+              <input required name="last_name" type="text"
+                class="w-full px-4 py-2 bg-white border border-gray-300 text-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-1 text-gray-700">Street Address *</label>
+            <input required name="address" type="text"
+              class="w-full px-4 py-2 bg-white border border-gray-300 text-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-1 text-gray-700">Apartment, suite, unit (optional)</label>
+            <input name="apartment" type="text"
+              class="w-full px-4 py-2 bg-white border border-gray-300 text-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" />
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium mb-1 text-gray-700">Country *</label>
+              <input required name="country" type="text"
+                class="w-full px-4 py-2 bg-white border border-gray-300 text-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1 text-gray-700">Order ID (optional)</label>
+              <input name="order_id" type="text"
+                class="w-full px-4 py-2 bg-white border border-gray-300 text-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium mb-1 text-gray-700">Email Address *</label>
+              <input required name="email" type="email"
+                class="w-full px-4 py-2 bg-white border border-gray-300 text-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1 text-gray-700">Phone Number *</label>
+              <input required name="phone" type="tel"
+                class="w-full px-4 py-2 bg-white border border-gray-300 text-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" />
+            </div>
+          </div>
+
+          <!-- T-Shirt Preferences -->
+          <div class="border-t pt-6 mt-6">
+            <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+              <i data-lucide="shirt" class="w-5 h-5 text-rose-600"></i>
+              Choose Your Free DPC T-Shirt
+            </h3>
+
+            <!-- Size -->
+            <div class="mb-4">
+              <label for="shirt_size" class="block text-sm font-medium mb-1 text-gray-700">Size *</label>
+              <select required name="shirt_size" id="shirt_size"
+                class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <option value="">Select Size</option>
+                <option value="S">Small (S)</option>
+                <option value="M">Medium (M)</option>
+                <option value="L">Large (L)</option>
+                <option value="XL">Extra Large (XL)</option>
+                <option value="XXL">2XL (XXL)</option>
+              </select>
+            </div>
+
+            <!-- Color -->
+            <div class="mb-4">
+              <label class="block text-sm font-medium mb-2 text-gray-700">T-Shirt Color *</label>
+              <div class="flex gap-3 flex-wrap" id="color-options">
+                <label class="relative cursor-pointer group">
+                  <input type="radio" name="shirt_color" value="white" class="sr-only peer" required />
+                  <div class="w-8 h-8 rounded-full border border-gray-300 bg-white peer-checked:ring-2 peer-checked:ring-indigo-500 peer-checked:ring-offset-2 transition"></div>
+                </label>
+
+                <label class="relative cursor-pointer group">
+                  <input type="radio" name="shirt_color" value="black" class="sr-only peer" />
+                  <div class="w-8 h-8 rounded-full border border-gray-300 bg-black peer-checked:ring-2 peer-checked:ring-indigo-500 peer-checked:ring-offset-2 transition"></div>
+                </label>
+
+                <label class="relative cursor-pointer group">
+                  <input type="radio" name="shirt_color" value="cream" class="sr-only peer" />
+                  <div class="w-8 h-8 rounded-full border border-gray-300 bg-yellow-100 peer-checked:ring-2 peer-checked:ring-indigo-500 peer-checked:ring-offset-2 transition"></div>
+                </label>
+
+                <label class="relative cursor-pointer group">
+                  <input type="radio" name="shirt_color" value="brown" class="sr-only peer" />
+                  <div class="w-8 h-8 rounded-full border border-gray-300 bg-amber-800 peer-checked:ring-2 peer-checked:ring-indigo-500 peer-checked:ring-offset-2 transition"></div>
+                </label>
+
+                <label class="relative cursor-pointer group">
+                  <input type="radio" name="shirt_color" value="pink" class="sr-only peer" />
+                  <div class="w-8 h-8 rounded-full border border-gray-300 bg-pink-400 peer-checked:ring-2 peer-checked:ring-indigo-500 peer-checked:ring-offset-2 transition"></div>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit Button inside the form -->
+          <button type="submit"
+            class="mt-6 w-full py-3 bg-black text-white rounded-lg flex items-center justify-center gap-2 hover:bg-gray-800 transition">
+            <i data-lucide="send" class="w-5 h-5"></i> Place Order & Proceed to PayPal
+          </button>
+        </form>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="bg-white p-6 rounded-xl shadow-md">
+        <h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
+          <i data-lucide="file-text" class="w-5 h-5 text-green-600"></i> Order Summary
+        </h2>
+        <div class="space-y-3 text-sm">
+          <div class="flex justify-between"><span>Package</span><span>Verification</span></div>
+          <div class="flex justify-between"><span>Subtotal</span><span>$299.00</span></div>
+          <div class="flex justify-between font-semibold text-lg border-t pt-2"><span>Total</span><span>$299.00</span></div>
+        </div>
+
+        <div class="bg-yellow-50 p-4 mt-6 rounded-md border-l-4 border-yellow-500">
+          <h3 class="text-yellow-700 font-semibold mb-1 flex items-center gap-2">
+            <i data-lucide="wallet" class="w-4 h-4"></i>
+            Payment Method: PayPal
+          </h3>
+          <p class="text-sm text-gray-700">You’ll be redirected to PayPal to complete your payment securely after submitting your details.</p>
+        </div>
+
+        <div id="gpay-button" class="mt-6"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
